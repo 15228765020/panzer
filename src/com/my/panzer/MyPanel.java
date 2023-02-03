@@ -8,22 +8,37 @@ import java.awt.event.KeyListener;
 public class MyPanel extends JPanel implements KeyListener {
 
 
+    private Tank tank ;
+
+    int x;
+    int y;
+    int direct;
+
+    public MyPanel() {
+    }
+
+    public MyPanel(Tank tank ) {
+
+
+        this.tank = tank;
+
+         x   = tank.getX() ;
+
+         y  = tank.getY() ;
+
+         direct = tank.getDirect();
+
+    }
+
     //当前坦克的坐标、方向
-    int x = 0 ;
 
-    int y = 0 ;
-
-    int direct = 0 ;
 
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        drawPanzer(x,y,g,direct);
-    /*    drawPanzer(x,y,g,1);
-        drawPanzer(x,y,g,2);
-        drawPanzer(x,y,g,3);*/
-
+        drawPanzer(tank.getX(),tank.getY(),g,tank.getDirect());
+//        drawPanzer(x,y,g,direct);
 
     }
 
@@ -113,12 +128,16 @@ public class MyPanel extends JPanel implements KeyListener {
 
                 this.direct = 0;
                 y--;
+
+                refreshTank(x,y,direct);
+
                 repaint();
 
                 break;
             case KeyEvent.VK_A:
                 this.direct = 2;
                 x--;
+                refreshTank(x,y,direct);
                 repaint();
 
                 break;
@@ -127,12 +146,14 @@ public class MyPanel extends JPanel implements KeyListener {
 
                 this.direct = 1;
                 y++;
+                refreshTank(x,y,direct);
                 repaint();
                 break;
             case KeyEvent.VK_D:
 
                 this.direct = 3;
                 x++;
+                refreshTank(x,y,direct);
                 repaint();
                 break;
         }
@@ -147,5 +168,14 @@ public class MyPanel extends JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    //更新坦克的 x y direct
+
+    public void refreshTank(int x, int y ,int direct){
+
+        this.tank.setX(x);
+        this.tank.setY(y);
+        this.tank.setDirect(direct);
     }
 }

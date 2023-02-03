@@ -2,11 +2,17 @@ package com.my.panzer;
 
 public class Tank {
 
-    private Integer x;
+    private static volatile Tank tank;
 
-    private Integer y;
+    private Tank() {
+    }
 
-    private Integer direct;
+
+    private Integer x = 0;
+
+    private Integer y = 0;
+
+    private Integer direct = 0;
 
     public Integer getX() {
         return x;
@@ -31,4 +37,22 @@ public class Tank {
     public void setDirect(Integer direct) {
         this.direct = direct;
     }
+
+    public static Tank getSingleTon(){
+
+        if (tank == null){
+
+            synchronized (Tank.class){
+
+                if (tank == null){
+                    tank = new Tank();
+                }
+
+            }
+
+        }
+        return tank;
+    }
+
+
 }
