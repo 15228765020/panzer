@@ -3,7 +3,8 @@ package com.my.panzer.线程案例.线程插队练习;
 public class ThreadMethodExercise {
 
     public static void main(String[] args) throws InterruptedException {
-
+//hahahha
+        System.out.println("牛逼");
         for (int i = 1; i <= 10; i++) {
             if (i==6){
 
