@@ -4,6 +4,7 @@ public class ThreadMethodExercise {
 
     public static void main(String[] args) throws InterruptedException {
 
+        System.out.println("cl分支的");
         for (int i = 1; i <= 10; i++) {
             if (i==6){
 
