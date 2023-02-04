@@ -6,7 +6,6 @@ public class SellTicketTest {
 
     public static void main(String[] args) {
 
-
         MyThread myThread0 = new MyThread();
         myThread0.start();
 
@@ -15,8 +14,6 @@ public class SellTicketTest {
 
         MyThread myThread2 = new MyThread();
         myThread2.start();
-
-
 
     }
 }

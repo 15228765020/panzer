@@ -22,7 +22,6 @@ public class MyThread extends Thread {
 
             synchronized (MyThread.class){
                 ticket--;
-//                System.out.println("当前窗口:"+Thread.currentThread().getName());
                 System.out.println("当前余票数="+ticket);
             }
 

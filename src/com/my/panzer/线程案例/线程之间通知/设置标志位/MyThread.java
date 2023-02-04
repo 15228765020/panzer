@@ -1,14 +1,8 @@
-package com.my.panzer.线程案例.售票.线程之间通知.设置标志位;
+package com.my.panzer.线程案例.线程之间通知.设置标志位;
 
 public class MyThread extends Thread {
 
-
     private boolean flag = false;
-
-
-    public MyThread() {
-    }
-
 
     @Override
     public void run() {
