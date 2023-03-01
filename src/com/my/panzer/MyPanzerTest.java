@@ -18,5 +18,7 @@ public class MyPanzerTest {
 
         System.out.println("合并");
 
+        System.out.println("不合并");
+
     }
 }
