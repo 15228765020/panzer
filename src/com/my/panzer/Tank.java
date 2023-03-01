@@ -2,10 +2,6 @@ package com.my.panzer;
 
 public class Tank {
 
-    private static volatile Tank tank;
-
-    private Tank() {
-    }
 
 
     private Integer x = 0;
@@ -13,6 +9,16 @@ public class Tank {
     private Integer y = 0;
 
     private Integer direct = 0;
+
+    private Boolean isAlive = true;
+
+    public Boolean getAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(Boolean alive) {
+        isAlive = alive;
+    }
 
     public Integer getX() {
         return x;
@@ -38,21 +44,7 @@ public class Tank {
         this.direct = direct;
     }
 
-    public static Tank getSingleTon(){
 
-        if (tank == null){
-
-            synchronized (Tank.class){
-
-                if (tank == null){
-                    tank = new Tank();
-                }
-
-            }
-
-        }
-        return tank;
-    }
 
 
 }
