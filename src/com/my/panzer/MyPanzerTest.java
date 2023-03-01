@@ -15,7 +15,5 @@ public class MyPanzerTest {
 
         MyJFrame myFrame = new MyJFrame(myPanel);
 
-
-
     }
 }
