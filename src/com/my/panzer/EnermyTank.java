@@ -2,7 +2,7 @@ package com.my.panzer;
 
 import java.util.Vector;
 
-public class EnermyTank  extends Tank{
+public class EnermyTank  extends Tank implements Runnable{
 
 
     //生命值初始化为100
@@ -77,30 +77,94 @@ public class EnermyTank  extends Tank{
     //敌人坦克移动
     public void enemyTankMove(){
 
+
         //坦克随机方向移动
         //[0-1)
-       int dir = (int) (Math.random() * 4);
 
-        switch (dir){
+        Integer y = getY();
+
+        Integer x = getX();
+
+
+        switch (getDirect()){//敌人坦克方向
 
             case 0: //上
 
+                y--;
+                setY(y);
+
+                //如果出界就换方向
+
+                if (isOutSide()){
+                    setDirect(randomDirect());
+                }
                 break;
 
             case 1://下
+                y++;
+                setY(y);
 
+                if (isOutSide()){
+                    setDirect(randomDirect());
+                }
                 break;
 
             case 2://左
 
+                x--;
+                setX(x);
+
+                if (isOutSide()){
+                    setDirect(randomDirect());
+                }
                 break;
 
             case 3://右
+                x++;
+                setX(x);
 
+
+                if (isOutSide()){
+                    setDirect(randomDirect());
+                }
                 break;
+
 
         }
 
+    }
+
+    //判断敌人坦克是否出界
+
+    public Boolean isOutSide(){//800 x600
+
+        switch (getDirect()){
+
+            case 0://上
+
+                if (getY()<=0){
+
+                    return true;
+                }
+                case 1://下
+                    if (getY()>=600){
+
+                        return true;
+                    }
+
+                    case 2://左
+                        if (getX()<=0){
+
+                            return true;
+                        }
+
+                        case 3: //右
+                            if (getX()>=800){
+
+                                return true;
+                            }
+        }
+        return false;
     }
 
     public Bullet getBullet() {
@@ -109,5 +173,29 @@ public class EnermyTank  extends Tank{
 
     public void setBullet(Bullet bullet) {
         this.bullet = bullet;
+    }
+
+    @Override
+    public void run() {
+        int dir = randomDirect();
+
+        setDirect(dir);
+
+        while (true){
+
+            enemyTankMove();
+
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
+    public Integer randomDirect(){
+        return (int) (Math.random() * 4);
     }
 }

@@ -15,7 +15,6 @@ public class MyPanzerTest {
 
         MyJFrame myFrame = new MyJFrame(myPanel);
 
-
         System.out.println("合并");
 
         System.out.println("不合并");

@@ -30,6 +30,14 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{
         enermyTank3.setDirect(1);
         enermyTank3.fireTheHole();
 
+        //敌人坦克自动移动
+
+        Thread thread1 = new Thread(enermyTank1);
+        Thread thread2 = new Thread(enermyTank2);
+        Thread thread3 = new Thread(enermyTank3);
+        thread1.start();
+        thread2.start();
+        thread3.start();
         tankVector.add(enermyTank1);
         tankVector.add(enermyTank2);
         tankVector.add(enermyTank3);
@@ -73,27 +81,32 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{
             EnermyTank enermyTank = iterator.next();
 
             if (hero.getBullet()!=null && hero.getBullet().getLive()){
+
                 Integer direct = hero.getDirect();
+                Bullet bullet = hero.getBullet();
                 switch (direct){//hero 方向
 
                     case 0://上
 
-                        if (       hero.getBullet().getY() <= enermyTank.getY()+60
-                                && hero.getBullet().getX()>= enermyTank.getX()
-                                && hero.getBullet().getX()<= enermyTank.getX()+60
+
+                        if (       bullet.getY() <= enermyTank.getY()+60
+                                && bullet.getX()>= enermyTank.getX()
+                                && bullet.getX()<= enermyTank.getX()+60
                             ){
+
+                                bullet.setLive(false);
                                 iterator.remove();
                         }
                         break;
                     case 1://下
-
                        // System.err.println("敌人坦克的坐标"+Thread.currentThread().getName()+"; x = "+enermyTank.getX()+"; y="+enermyTank.getX());
-                        if ((      hero.getBullet().getX() <= enermyTank.getX()+60
-                                && hero.getBullet().getY()>= enermyTank.getY()
-                                && hero.getBullet().getX()<= enermyTank.getX())
+                        if ((      bullet.getX() <= enermyTank.getX()+60
+                                && bullet.getY()>= enermyTank.getY()
+                                && bullet.getX()<= enermyTank.getX())
                                 ){
-
+                            bullet.setLive(false);
                             iterator.remove();
+
 
                         }
 
@@ -101,12 +114,11 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{
 
                     case 2://左
 
-                        if (    hero.getBullet().getX() >= enermyTank.getX()
-                                &&
-                                hero.getBullet().getY() >= enermyTank.getY()
-                                && hero.getBullet().getY()<= enermyTank.getY()+60
+                        if (     bullet.getX() >= enermyTank.getX()
+                              && bullet.getY() >= enermyTank.getY()
+                              && bullet.getY()<= enermyTank.getY()+60
                             ){
-
+                            bullet.setLive(false);
                             iterator.remove();
                         }
 
@@ -114,12 +126,12 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{
 
                     case 3://右
 
-                        if (    hero.getBullet().getX() <= enermyTank.getX()+60
-                                &&hero.getBullet().getY() >= enermyTank.getY()
-                                && hero.getBullet().getY()<= enermyTank.getY()+60
+                        if (       bullet.getX() <= enermyTank.getX()+60
+                                && bullet.getY() >= enermyTank.getY()
+                                && bullet.getY()<= enermyTank.getY()+60
                                 ){
-
-                            iterator.remove();
+                                    bullet.setLive(false);
+                                    iterator.remove();
 
                         }
 
@@ -128,6 +140,8 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{
 
                 }
             }
+
+
 
             g.setColor(Color.RED);//将画笔调成红色
             drawPanzer(enermyTank.getX(),enermyTank.getY(),g,enermyTank.getDirect());
@@ -235,8 +249,7 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{
     public void keyTyped(KeyEvent e) {
 
         char keyChar = e.getKeyChar();
-        int tempX = 0;
-        int tempY = 0;
+
         switch ((int) keyChar){
 
             case KeyEvent.VK_W://大写的输入  上
@@ -244,9 +257,7 @@ public class MyPanel extends JPanel implements KeyListener , Runnable{
                 hero.setDirect(0);
 
                 int y = hero.getY();
-//                if (++tempY>)
 
-//                y--;
                 if (!isTriggered(hero.getX(),y,KeyEvent.VK_W)){
                     y--;
                 }
